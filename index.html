@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Voice Agent – Gemini + Audio Biometrics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2933, #020617);
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+    .card {
+      background-color: rgba(15, 23, 42, 0.95);
+      border-radius: 1.5rem;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      max-width: 600px;
+      width: 100%;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+    h1 {
+      font-size: 1.7rem;
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      color: #cbd5f5;
+      margin-bottom: 0.75rem;
+    }
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.9);
+    }
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-right: 0.6rem;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+    }
+    button.primary {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      box-shadow: 0 16px 30px rgba(88, 80, 236, 0.65);
+    }
+    button.secondary {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+    button:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: none;
+    }
+    .status {
+      margin-top: 1.4rem;
+      font-size: 0.88rem;
+      color: #a5b4fc;
+    }
+    .status span.dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      margin-right: 0.4rem;
+    }
+    .dot-idle { background: #6b7280; }
+    .dot-listening { background: #22c55e; box-shadow: 0 0 8px rgba(34, 197, 94, 0.9); }
+    .dot-processing { background: #f97316; box-shadow: 0 0 8px rgba(249, 115, 22, 0.9); }
+    pre {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 0.75rem;
+      padding: 0.9rem 1rem;
+      font-size: 0.75rem;
+      overflow-x: auto;
+      border: 1px solid rgba(30, 64, 175, 0.8);
+      margin-top: 0.8rem;
+      max-height: 230px;
+    }
+    .footer {
+      font-size: 0.72rem;
+      color: #6b7280;
+      margin-top: 1.2rem;
+    }
+    .hint {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 0.4rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="pill">
+      <span class="pill-dot"></span>
+      Voice-Only AI Agent · Gemini + Audio Biometrics
+    </div>
+    <h1>Talk to your AI agent.</h1>
+    <div class="subtitle">
+      Enroll your voice once, then issue natural spoken commands:
+      <em>“Send an email to my professor”</em>,
+      <em>“Book me an Uber to campus”</em>,
+      <em>“Add a reminder for tomorrow”</em>.
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      <button id="enroll" class="secondary">
+        <span>🎙️</span>
+        <span>Enroll my voice</span>
+      </button>
+      <button id="record" class="primary">
+        <span>🧠</span>
+        <span>Hold to speak command</span>
+      </button>
+    </div>
+
+    <div class="hint">
+      Tip: For the demo, say something like
+      <strong>“Send an email to my professor confirming I will proctor the exam at 3:10 pm.”</strong>
+    </div>
+
+    <div class="status" id="status">
+      <span class="dot dot-idle"></span>
+      Idle · tap a button to start recording.
+    </div>
+
+    <pre id="log">{}</pre>
+
+    <div class="footer">
+      Audio stays between your browser and this Flask backend. Gemini powers
+      transcription, intent, tool selection, and voice similarity scoring.
+    </div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
