@@ -16,7 +16,7 @@ VOICEPRINT_DIR = pathlib.Path("voiceprints")
 VOICEPRINT_DIR.mkdir(exist_ok=True)
 
 # Gemini client (your existing API key)
-client = genai.Client(api_key="AIzaSyB_t1uX-_BuCAm3u6MfghDEDXTaPB60BEU")
+client = genai.Client(api_key="")
 MODEL = "gemini-2.5-flash"
 
 TODOS = []
@@ -240,3 +240,4 @@ def voice_command():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
+
