@@ -18,7 +18,7 @@ VOICEPRINT_DIR = pathlib.Path("voiceprints")
 VOICEPRINT_DIR.mkdir(exist_ok=True)
 
 # Gemini client: expects GOOGLE_API_KEY in environment
-client = genai.Client(api_key="AIzaSyB_t1uX-_BuCAm3u6MfghDEDXTaPB60BEU")
+client = genai.Client(api_key="")
 MODEL = "gemini-2.5-flash"  # change if your hackathon specifies a different model
 
 # In-memory todo storage for demo
